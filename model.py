@@ -1,6 +1,9 @@
 import csv
 import matplotlib.pyplot as plt
 import numpy as np
+from keras.models import Sequential
+from keras.layers import Flatten, Dense, Activation, MaxPooling2D, Dropout, Lambda, Cropping2D
+from keras.layers.convolutional import Convolution2D
 
 # Read csv file created by simulator.
 lines = []
@@ -33,10 +36,6 @@ for line in lines:
 # Begin training and validation.
 X_train = np.array(images)
 y_train = np.array(measurements)
-
-from keras.models import Sequential
-from keras.layers import Flatten, Dense, Activation, MaxPooling2D, Dropout, Lambda, Cropping2D
-from keras.layers.convolutional import Convolution2D
 
 model = Sequential()
 model.add(Lambda(lambda x: (x/255.0) - 0.5, input_shape=(160,320,3)))
