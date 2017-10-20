@@ -1,4 +1,4 @@
-#**Behavioral Cloning** 
+# **Behavioral Cloning** 
 
 **Behavioral Cloning Project**
 
@@ -26,12 +26,12 @@ The goals / steps of this project are the following:
 [imageLoss]: ./examples/loss.png "Loss vs epoch"
 
 ## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
+### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-###Files Submitted & Code Quality
+### Files Submitted & Code Quality
 
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
+#### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 I submit a zip file that includes the following files:
 * model.py containing the script to create and train the model
@@ -40,19 +40,19 @@ I submit a zip file that includes the following files:
 * video.mp4 shows the video taken during autonomous mode
 * writeup_report.md summarizing the results
 
-####2. Submission includes functional code
+#### 2. Submission includes functional code
 Using the Udacity provided simulator and drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
 python drive.py model.h5
 ```
 
-####3. Submission code is usable and readable
+#### 3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
+#### 1. An appropriate model architecture has been employed
 
 The model begins with a lambda layer that normalizes the input images (model.py line 42). Then the image is cropped by 70 pixels on the top, and 25 pixels on the bottom (model.py line 43). The cropping removes the area with information that is not relevant to the goal.
 
@@ -60,7 +60,7 @@ Next step is a convolutional layer with a filter size 5x5, stride 3, and depth 1
 
 Lastly, a fully connected layer with 160 nodes was added with a dropout rate of 0.5 and RELU activation, followed by one output node (model.py lines 49-51).
 
-####2. Attempts to reduce overfitting in the model
+#### 2. Attempts to reduce overfitting in the model
 
 
 The fully connected layer has dropout rate of 50% (model.py line 50).
@@ -69,21 +69,21 @@ The data was randomly divided and 20% of the data was used for validation (model
 
 The trained model was tested with the simulator to ensure that the car stays in the lane.
 
-####3. Model parameter tuning
+#### 3. Model parameter tuning
 
 Over a hundred trains were performed to determine the parameters for the convulutional layers and the fully connected layer.
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 53).
 
-####4. Appropriate training data
+#### 4. Appropriate training data
 
 I have collected the data by driving the vehicle for two laps, then driving one lap in the opposite direction. The images taken by three cameras were used.
 
 The images were also randomly flipped to form mirror images (model.py line 27).
 
-###Architeccture and Training Documentation
+### Architeccture and Training Documentation
 
-####1. Solution Design Approach
+#### 1. Solution Design Approach
 
 So far in the previous projects, the combination of convolutional layers and fully connected layers performed well dealing with image data. So I started with a similar setup, and ran over a hundred trainings with varying architectures and parameters to determine the best combination.
 
@@ -99,7 +99,7 @@ The model architecture and the parametes were tuned by running the training over
 
 Although I was fairly confident that the network was doing a good job achieving the minimal loss function, the simulation showed that the car was not recovering in some curves. I thgough it would help if I augment the data set to feed more information to the network. I thought about a few ways to achieve that goal, and I decided to flip some images to form mirror images. Specifically, I tried flipping every other images, thinking that any two consecutive images from the simulation would be very similar to each other, and therefore may be redundant. I have added some randomness to the order, rather than strictly taking turns with flipping and not flipping, to avoid any systematic effect from the regularness.
 
-####2. Final Model Architecture
+#### 2. Final Model Architecture
 
 The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes.
 
@@ -116,7 +116,7 @@ The final model architecture (model.py lines 18-24) consisted of a convolution n
 | Output                | 1 node                                             |
 
 
-####3. Creation of the Training Set & Training Process
+#### 3. Creation of the Training Set & Training Process
 
 At first, I drove the simulator using the keyboard. However, I was concerned of the fact that I was able to turn a curve by hitting left or right arrow only intermittently. As I lift my finger off the arrow keys, the steering turned back to zero. That would create a lot of data points with zero steering along the curve, which is not the cars are usually driven. So I swithced to using mouse to steer.
 
